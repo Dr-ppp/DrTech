@@ -44,5 +44,14 @@
         "stream": true
       }
     ]
+  },
+  "item.jet_wingpack_engine_active" : {
+    "category" : "player",
+    "sounds" : [
+      {
+        "name" : "drtech:jet_engine_active",
+        "stream" : true
+      }
+    ]
   }
 }

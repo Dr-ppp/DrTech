@@ -1,5 +1,6 @@
 package com.drppp.drtech.common.Items.MetaItems;
 
+import gregtech.api.items.armor.ArmorMetaItem;
 import gregtech.api.items.metaitem.MetaItem;
 
 public final class MyMetaItems {
@@ -66,9 +67,32 @@ public final class MyMetaItems {
     public static MetaItem<?>.MetaValueItem TOOL_BOX ;
     public static MetaItem<?>.MetaValueItem MATRIX_GEMS ;
 
+    public static ArmorMetaItem<?>.ArmorMetaValueItem JET_WINGPACK;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem SIMPLE_GAS_MASK;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem GAS_MASK;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem GAS_TANK;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem ASBESTOS_MASK;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem ASBESTOS_CHESTPLATE;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem ASBESTOS_LEGGINGS;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem ASBESTOS_BOOTS;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem REBREATHER_TANK;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem REFLECTIVE_MASK;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem REFLECTIVE_CHESTPLATE;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem REFLECTIVE_LEGGINGS;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem REFLECTIVE_BOOTS;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem FILTERED_TANK;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem NOMEX_MASK;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem NOMEX_CHESTPLATE;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem NOMEX_LEGGINGS;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem NOMEX_BOOTS;
+
+    public static DrtechMetaArmor armorItem;
     public static void MetaItemsInit()
     {
        MetaItems1 metaItem = new MetaItems1();
         metaItem.setRegistryName("meta_items_mymod");
+
+        armorItem = new DrtechMetaArmor();
+        armorItem.setRegistryName("susy_armor");
     }
 }
