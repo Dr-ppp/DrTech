@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.drppp.drtech.api.Utils.DrtechUtils.getRL;
+import static com.drppp.drtech.common.enent.DimensionBreathabilityHandler.BENEATH_TYPE_ID;
+import static com.drppp.drtech.common.enent.DimensionBreathabilityHandler.NETHER_TYPE_ID;
 import static net.minecraft.inventory.EntityEquipmentSlot.*;
 
 public class AdvancedBreathingApparatus extends BreathingApparatus implements ITextureRegistrar {
@@ -54,7 +56,7 @@ public class AdvancedBreathingApparatus extends BreathingApparatus implements IT
 
     @Override
     public boolean mayBreatheWith(ItemStack stack, EntityPlayer player) {
-        return player.dimension == DimensionBreathabilityHandler.BENEATH_ID || player.dimension == DimensionBreathabilityHandler.NETHER_ID;
+        return BENEATH_TYPE_ID.contains(player.dimension) || NETHER_TYPE_ID.contains(player.dimension);
     }
 
     @Override
@@ -120,7 +122,7 @@ public class AdvancedBreathingApparatus extends BreathingApparatus implements IT
 
 
     private void handleDamage(ItemStack stack, EntityPlayer player) {
-        if (hoursOfLife == 0 || player.dimension == DimensionBreathabilityHandler.BENEATH_ID) {
+        if (hoursOfLife == 0 || BENEATH_TYPE_ID.contains(player.dimension)) {
             return; // No damage
         }
         double amount = (1. / (60. * 60. * hoursOfLife));

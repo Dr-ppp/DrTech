@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.drppp.drtech.api.Utils.DrtechUtils.getRL;
+import static com.drppp.drtech.common.enent.DimensionBreathabilityHandler.BENEATH_TYPE_ID;
 import static net.minecraft.inventory.EntityEquipmentSlot.CHEST;
 
 public class BreathingApparatus implements IBreathingArmorLogic, IItemDurabilityManager, ITextureRegistrar {
@@ -57,7 +58,7 @@ public class BreathingApparatus implements IBreathingArmorLogic, IItemDurability
     }
     @Override
     public boolean mayBreatheWith(ItemStack stack, EntityPlayer player) {
-        if (player.dimension != DimensionBreathabilityHandler.BENEATH_ID) {
+        if (!BENEATH_TYPE_ID.contains(player.dimension)) {
             return false;
         }
         ItemStack chest = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);

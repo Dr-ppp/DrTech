@@ -9,30 +9,34 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
+import static com.drppp.drtech.DrtConfig.EnvironmentSwitch.EnableAirPollution;
 import static net.minecraft.inventory.EntityEquipmentSlot.*;
 
 public final class DimensionBreathabilityHandler {
 
     private static final Map<Integer, BreathabilityInfo> dimensionBreathabilityMap = new HashMap<>();
 
-    public static final int BENEATH_ID = 10;
-    public static final int NETHER_ID = -1;
+    public static final List<Integer> NETHER_TYPE_ID= Arrays.asList(-1,1);
+    public static final List<Integer> BENEATH_TYPE_ID= Arrays.asList(10,51,52);
+
 
     private DimensionBreathabilityHandler() {}
 
     public static void loadConfig() {
+        if(!EnableAirPollution)return;
 
         dimensionBreathabilityMap.clear();
 
-        // Nether
-        dimensionBreathabilityMap.put(-1, new BreathabilityInfo(SuSyDamageSources.getToxicAtmoDamage(), 2));
-        // Beneath
-        dimensionBreathabilityMap.put(10, new BreathabilityInfo(SuSyDamageSources.getSuffocationDamage(), 0.5));
+        for(int id:NETHER_TYPE_ID)
+        {
+            dimensionBreathabilityMap.put(id, new BreathabilityInfo(SuSyDamageSources.getSuffocationDamage(), 2));
+        }
+        for(int id:BENEATH_TYPE_ID)
+        {
+            dimensionBreathabilityMap.put(id, new BreathabilityInfo(SuSyDamageSources.getSuffocationDamage(), 0.5));
+        }
 
     }
 

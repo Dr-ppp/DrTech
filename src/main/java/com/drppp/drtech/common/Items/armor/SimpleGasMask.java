@@ -19,6 +19,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import static com.drppp.drtech.common.enent.DimensionBreathabilityHandler.BENEATH_TYPE_ID;
+
 public class SimpleGasMask implements IBreathingArmorLogic, IItemDurabilityManager {
     public static final double LIFETIME = 1200;
     @Override
@@ -43,7 +45,7 @@ public class SimpleGasMask implements IBreathingArmorLogic, IItemDurabilityManag
 
     @Override
     public boolean mayBreatheWith(ItemStack stack, EntityPlayer player) {
-        return player.dimension == DimensionBreathabilityHandler.BENEATH_ID && getDamage(stack) < 1;
+        return BENEATH_TYPE_ID.contains(player.dimension) && getDamage(stack) < 1;
     }
 
 
