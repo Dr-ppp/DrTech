@@ -8,8 +8,7 @@ import static net.minecraft.inventory.EntityEquipmentSlot.FEET;
 public class DrtechMetaArmor extends DrtechArmorItem {
     @Override
     public void registerSubItems() {
-        MyMetaItems.SIMPLE_GAS_MASK = addItem(0, "simple_gas_mask").setArmorLogic(new SimpleGasMask());
-        MyMetaItems.JET_WINGPACK = addItem(1, "jet_wingpack").setArmorLogic(new JetWingpack());
+        MyMetaItems.SIMPLE_GAS_MASK = addItem(1, "simple_gas_mask").setArmorLogic(new SimpleGasMask());
         MyMetaItems.GAS_MASK = addItem(2, "gas_mask").setArmorLogic(new BreathingApparatus(HEAD));
         MyMetaItems.GAS_TANK = addItem(3, "gas_tank").setArmorLogic(new BreathingApparatus(CHEST));
         MyMetaItems.ASBESTOS_MASK = addItem(4, "asbestos_mask").setArmorLogic(new AdvancedBreathingApparatus(HEAD, 1, "asbestos", 0, 0.3));
