@@ -5,7 +5,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
-public class SusySounds {
+public class Sounds {
 
     public static SoundEvent ROCKET_LOOP;
     public static SoundEvent DRONE_TAKEOFF;

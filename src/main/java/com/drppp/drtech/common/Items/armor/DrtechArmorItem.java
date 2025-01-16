@@ -10,7 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-public class DrtechArmorItem extends ArmorMetaItem<DrtechArmorItem.SuSyArmorMetaValueItem> implements IBreathingItem {
+public class DrtechArmorItem extends ArmorMetaItem<DrtechArmorItem.ArmorMetaValueItem> implements IBreathingItem {
 
 
     @Override
@@ -23,14 +23,14 @@ public class DrtechArmorItem extends ArmorMetaItem<DrtechArmorItem.SuSyArmorMeta
         return getItem(stack).armorLogic.tryTick(stack, player);
     }
 
-    public class SuSyArmorMetaValueItem extends ArmorMetaItem<SuSyArmorMetaValueItem>.ArmorMetaValueItem {
+    public class ArmorMetaValueItem extends ArmorMetaItem<ArmorMetaValueItem>.ArmorMetaValueItem {
         private IBreathingArmorLogic armorLogic = null;
-        protected SuSyArmorMetaValueItem(int metaValue, String unlocalizedName) {
+        protected ArmorMetaValueItem(int metaValue, String unlocalizedName) {
             super(metaValue, unlocalizedName);
             this.setMaxStackSize(1);
         }
 
-        public SuSyArmorMetaValueItem setArmorLogic(IBreathingArmorLogic armorLogic) {
+        public ArmorMetaValueItem setArmorLogic(IBreathingArmorLogic armorLogic) {
             super.setArmorLogic(armorLogic);
             this.armorLogic = armorLogic;
             if (armorLogic instanceof IItemComponent)
@@ -40,12 +40,12 @@ public class DrtechArmorItem extends ArmorMetaItem<DrtechArmorItem.SuSyArmorMeta
 
     }
 
-    protected SuSyArmorMetaValueItem constructMetaValueItem(short metaValue, String unlocalizedName) {
-        return new SuSyArmorMetaValueItem(metaValue, unlocalizedName);
+    protected ArmorMetaValueItem constructMetaValueItem(short metaValue, String unlocalizedName) {
+        return new ArmorMetaValueItem(metaValue, unlocalizedName);
     }
 
     public void registerIngameModels(TextureMap map) {
-        for (SuSyArmorMetaValueItem item : this.getAllItems()) {
+        for (ArmorMetaValueItem item : this.getAllItems()) {
             if (item.getArmorLogic() instanceof ITextureRegistrar registrar) {
                 for (ResourceLocation model : registrar.getTextureLocations()) {
                     map.registerSprite(model);

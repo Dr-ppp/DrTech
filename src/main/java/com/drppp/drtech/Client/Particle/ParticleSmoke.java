@@ -10,9 +10,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
 
 @SideOnly(Side.CLIENT)
-public class SusyParticleSmoke extends ParticleSmokeNormal {
+public class ParticleSmoke extends ParticleSmokeNormal {
 
-    public SusyParticleSmoke(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn){
+    public ParticleSmoke(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn){
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn, 3.F);
     }
 
@@ -20,7 +20,7 @@ public class SusyParticleSmoke extends ParticleSmokeNormal {
     public static class Factory implements IParticleFactory {
 
         public Particle createParticle(int particleID, @NotNull World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int @NotNull ... parameters) {
-            return new SusyParticleSmoke(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+            return new ParticleSmoke(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
         }
 
     }

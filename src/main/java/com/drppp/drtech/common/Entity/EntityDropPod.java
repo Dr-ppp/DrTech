@@ -1,7 +1,7 @@
 package com.drppp.drtech.common.Entity;
 
-import com.drppp.drtech.Client.Particle.SusyParticleFlame;
-import com.drppp.drtech.Client.Particle.SusyParticleSmoke;
+import com.drppp.drtech.Client.Particle.ParticleFlame;
+import com.drppp.drtech.Client.Particle.ParticleSmoke;
 import com.drppp.drtech.Client.audio.MovingSoundDropPod;
 import gregtech.api.GTValues;
 import net.minecraft.block.SoundType;
@@ -90,7 +90,7 @@ public class EntityDropPod extends EntityLiving implements IAnimatable {
         }
 
         double offset = goingUp ? 0.2D : 0.5D;
-        SusyParticleFlame flame1 = new SusyParticleFlame(
+        ParticleFlame flame1 = new ParticleFlame(
                 this.world,
                 this.posX + 0.8D,
                 this.posY + 0.9D + offset,
@@ -98,7 +98,7 @@ public class EntityDropPod extends EntityLiving implements IAnimatable {
                 1.5 * (GTValues.RNG.nextFloat() + 0.2) * 0.08,
                 -1.5,
                 1.5 * (GTValues.RNG.nextFloat() - 0.5) * 0.08);
-        SusyParticleFlame flame2 = new SusyParticleFlame(
+        ParticleFlame flame2 = new ParticleFlame(
                 this.world,
                 this.posX + 0.8D,
                 this.posY + 0.9D + offset,
@@ -106,7 +106,7 @@ public class EntityDropPod extends EntityLiving implements IAnimatable {
                 1.5 * (GTValues.RNG.nextFloat() + 0.2) * 0.08,
                 -1.5,
                 1.5 * (GTValues.RNG.nextFloat() - 0.5) * 0.08);
-        SusyParticleFlame flame3 = new SusyParticleFlame(
+        ParticleFlame flame3 = new ParticleFlame(
                 this.world,
                 this.posX - 0.8D,
                 this.posY + 0.9D + offset,
@@ -114,7 +114,7 @@ public class EntityDropPod extends EntityLiving implements IAnimatable {
                 1.5 * (GTValues.RNG.nextFloat() - 1.2) * 0.08,
                 -1.5,
                 1.5 * (GTValues.RNG.nextFloat() - 0.5) * 0.08);
-        SusyParticleFlame flame4 = new SusyParticleFlame(
+        ParticleFlame flame4 = new ParticleFlame(
                 this.world,
                 this.posX - 0.8D,
                 this.posY + 0.9D + offset,
@@ -123,7 +123,7 @@ public class EntityDropPod extends EntityLiving implements IAnimatable {
                 -1.5,
                 1.5 * (GTValues.RNG.nextFloat() - 0.5) * 0.08);
 
-        SusyParticleSmoke smoke1 = new SusyParticleSmoke(
+        ParticleSmoke smoke1 = new ParticleSmoke(
                 this.world,
                 this.posX + 0.8D,
                 this.posY + 0.9D + offset,
@@ -131,7 +131,7 @@ public class EntityDropPod extends EntityLiving implements IAnimatable {
                 1.5 * (GTValues.RNG.nextFloat() + 0.2) * 0.16,
                 -1.5,
                 1.5 * (GTValues.RNG.nextFloat() - 0.5) * 0.16);
-        SusyParticleSmoke smoke2 = new SusyParticleSmoke(
+        ParticleSmoke smoke2 = new ParticleSmoke(
                 this.world,
                 this.posX + 0.8D,
                 this.posY + 0.9D + offset,
@@ -139,7 +139,7 @@ public class EntityDropPod extends EntityLiving implements IAnimatable {
                 1.5 * (GTValues.RNG.nextFloat() + 0.2) * 0.16,
                 -1.5,
                 1.5 * (GTValues.RNG.nextFloat() - 0.5) * 0.16);
-        SusyParticleSmoke smoke3 = new SusyParticleSmoke(
+        ParticleSmoke smoke3 = new ParticleSmoke(
                 this.world,
                 this.posX - 0.8D,
                 this.posY + 0.9D + offset,
@@ -147,7 +147,7 @@ public class EntityDropPod extends EntityLiving implements IAnimatable {
                 1.5 * (GTValues.RNG.nextFloat() - 1.2) * 0.16,
                 -1.5,
                 1.5 * (GTValues.RNG.nextFloat() - 0.5) * 0.16);
-        SusyParticleSmoke smoke4 = new SusyParticleSmoke(
+        ParticleSmoke smoke4 = new ParticleSmoke(
                 this.world,
                 this.posX - 0.8D,
                 this.posY + 0.9D + offset,

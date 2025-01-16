@@ -2,7 +2,6 @@ package com.drppp.drtech.common.Items.armor;
 
 import com.drppp.drtech.Client.render.BreathingApparatusModel;
 import com.drppp.drtech.Client.render.ITextureRegistrar;
-import com.drppp.drtech.common.enent.DimensionBreathabilityHandler;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
@@ -68,39 +67,32 @@ public class AdvancedBreathingApparatus extends BreathingApparatus implements IT
             if (item.getItem(chest).getArmorLogic() instanceof AdvancedBreathingApparatus tank && tank.tier == tier) {
                 tank.handleDamage(chest, player);
 
-                int piecesCount = 0;
-                ItemStack leggings = player.getItemStackFromSlot(LEGS);
-                if (leggings.getItem() instanceof DrtechArmorItem item2) {
-                    if (item2.getItem(leggings).getArmorLogic() instanceof AdvancedBreathingApparatus legLogic) {
-                        legLogic.handleDamage(leggings, player);
-                        piecesCount++;
-                    }
-                }
-
-                ItemStack boots = player.getItemStackFromSlot(FEET);
-                if (boots.getItem() instanceof DrtechArmorItem item2) {
-                    if (item2.getItem(boots).getArmorLogic() instanceof AdvancedBreathingApparatus bootLogic) {
-                        bootLogic.handleDamage(boots, player);
-                        piecesCount++;
-                    }
-                }
+                int piecesCount = processArmorPiece(player, LEGS, tank) + processArmorPiece(player, FEET, tank);
 
                 if (tank.getOxygen(chest) <= 0) {
-                    return 0.0625;
+                    return 1.5;
                 } else {
-                    tank.changeOxygen(chest, -1.);
+                    tank.changeOxygen(chest, Math.max(-1., tank.getOxygen(chest) - 1.));
                 }
-                switch (piecesCount) {
-                    case 0:
-                        return 0.5;
-                    case 1:
-                        return 1;
-                    case 2:
-                        return 2;
-                }
+                return switch (piecesCount) {
+                    case 1 -> 0.5;
+                    case 2 -> 0;
+                    default -> 1;
+                };
             }
         }
-        return 0.0625;
+        return 2;
+    }
+
+    private int processArmorPiece(EntityPlayer player, EntityEquipmentSlot slot, AdvancedBreathingApparatus tank) {
+        ItemStack piece = player.getItemStackFromSlot(slot);
+        if (piece.getItem() instanceof DrtechArmorItem item) {
+            if (item.getItem(piece).getArmorLogic() instanceof AdvancedBreathingApparatus logic && logic.tier == tank.tier) {
+                logic.handleDamage(piece, player);
+                return 1;
+            }
+        }
+        return 0;
     }
 
 
@@ -122,15 +114,14 @@ public class AdvancedBreathingApparatus extends BreathingApparatus implements IT
 
 
     private void handleDamage(ItemStack stack, EntityPlayer player) {
-        if (hoursOfLife == 0 || BENEATH_TYPE_ID.contains(player.dimension)) {
-            return; // No damage
+        if (hoursOfLife == 0) return;
+        if (BENEATH_TYPE_ID.contains(player.dimension) || NETHER_TYPE_ID.contains(player.dimension)) {
+            double amount = (1. / (60. * 60. * hoursOfLife));
+            changeDamage(stack, amount);
         }
-        double amount = (1. / (60. * 60. * hoursOfLife));
-        changeDamage(stack, amount); // It's actually ticked every overall second, not just every tick.
-        if (getDamage(stack) >= 1) {
+
+        if (getDamage(stack) == 1) {
             player.renderBrokenItemStack(stack);
-            stack.shrink(1);
-            player.setItemStackToSlot(HEAD, ItemStack.EMPTY);
         }
     }
 
@@ -173,29 +164,37 @@ public class AdvancedBreathingApparatus extends BreathingApparatus implements IT
     }
 
 
-    public void addInformation(ItemStack stack, List<String> strings) {
+public void addInformation(ItemStack stack, List<String> strings) {
+    if (getEquipmentSlot(stack) == CHEST) {
+        int maxOxygen = (int) getMaxOxygen(stack);
+        int oxygen = (int) getOxygen(stack);
 
-        if (getEquipmentSlot(stack) == CHEST) {
-            int maxOxygen = (int) getMaxOxygen(stack);
-            if (maxOxygen == -1) {
-                strings.add(I18n.format("drtech.unlimited_oxygen"));
-            } else {
-                int oxygen = (int) getOxygen(stack);
-                strings.add(I18n.format("drtech.oxygen", oxygen, maxOxygen));
-            }
-        }
-        if (hoursOfLife > 0) {
-            double lifetime = 60 * 60 * hoursOfLife;
-            int secondsRemaining = (int) (lifetime - getDamage(stack) * lifetime);
-            strings.add(I18n.format("drtech.seconds_left", secondsRemaining));
+        if (maxOxygen == -1) {
+            strings.add(I18n.format("drtech.unlimited_oxygen"));
         } else {
-            strings.add(I18n.format("drtech.unlimited"));
+            strings.add(I18n.format("drtech.oxygen", oxygen, maxOxygen));
         }
 
-        int armor = (int) Math.round(20.0F * this.getAbsorption(this.SLOT) * this.relativeAbsorption);
-        if (armor > 0)
-            strings.add(I18n.format("attribute.modifier.plus.0", armor, I18n.format("attribute.name.generic.armor")));
+        // 使用占位符和国际化资源文件
+        strings.add(I18n.format("drtech.dimension_applicable", NETHER_TYPE_ID));
+        strings.add(I18n.format("drtech.dimension_applicable", BENEATH_TYPE_ID));
     }
+
+    if (hoursOfLife > 0) {
+        final double SECONDS_IN_HOUR = 3600; // 定义常量
+        double lifetime = SECONDS_IN_HOUR * hoursOfLife;
+        int secondsRemaining = (int) (lifetime - getDamage(stack) * lifetime);
+        strings.add(I18n.format("drtech.seconds_left", secondsRemaining));
+    } else {
+        strings.add(I18n.format("drtech.unlimited"));
+    }
+
+    int armor = (int) Math.round(20.0F * this.getAbsorption(this.SLOT) * this.relativeAbsorption);
+    if (armor > 0) {
+        strings.add(I18n.format("attribute.modifier.plus.0", armor, I18n.format("attribute.name.generic.armor")));
+    }
+}
+
 
     @Override
     public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {

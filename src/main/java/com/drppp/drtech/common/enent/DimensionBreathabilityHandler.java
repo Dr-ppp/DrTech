@@ -1,9 +1,10 @@
 package com.drppp.drtech.common.enent;
 
-import com.drppp.drtech.api.Utils.SuSyDamageSources;
+import com.drppp.drtech.api.Utils.DamageSources;
 import com.drppp.drtech.common.Items.armor.DrtechArmorItem;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -19,7 +20,7 @@ public final class DimensionBreathabilityHandler {
     private static final Map<Integer, BreathabilityInfo> dimensionBreathabilityMap = new HashMap<>();
 
     public static final List<Integer> NETHER_TYPE_ID= Arrays.asList(-1,1);
-    public static final List<Integer> BENEATH_TYPE_ID= Arrays.asList(10,51,52);
+    public static final List<Integer> BENEATH_TYPE_ID= Arrays.asList(10,51,52,53,54);
 
 
     private DimensionBreathabilityHandler() {}
@@ -31,18 +32,17 @@ public final class DimensionBreathabilityHandler {
 
         for(int id:NETHER_TYPE_ID)
         {
-            dimensionBreathabilityMap.put(id, new BreathabilityInfo(SuSyDamageSources.getSuffocationDamage(), 2));
+            dimensionBreathabilityMap.put(id, new BreathabilityInfo(DamageSources.getSuffocationDamage(), 2));
         }
         for(int id:BENEATH_TYPE_ID)
         {
-            dimensionBreathabilityMap.put(id, new BreathabilityInfo(SuSyDamageSources.getSuffocationDamage(), 0.5));
+            dimensionBreathabilityMap.put(id, new BreathabilityInfo(DamageSources.getSuffocationDamage(), 0.5));
         }
 
     }
 
 
     public static boolean tickAir(EntityPlayer player, FluidStack oxyStack) {
-        // don't drain if we are in creative
         if (player.isCreative()) return true;
         Optional<IFluidHandlerItem> tank = player.inventory.mainInventory.stream()
                 .map(a -> a.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null))

@@ -67,7 +67,6 @@ public final class MyMetaItems {
     public static MetaItem<?>.MetaValueItem TOOL_BOX ;
     public static MetaItem<?>.MetaValueItem MATRIX_GEMS ;
 
-    public static ArmorMetaItem<?>.ArmorMetaValueItem JET_WINGPACK;
     public static ArmorMetaItem<?>.ArmorMetaValueItem SIMPLE_GAS_MASK;
     public static ArmorMetaItem<?>.ArmorMetaValueItem GAS_MASK;
     public static ArmorMetaItem<?>.ArmorMetaValueItem GAS_TANK;
@@ -93,6 +92,6 @@ public final class MyMetaItems {
         metaItem.setRegistryName("meta_items_mymod");
 
         armorItem = new DrtechMetaArmor();
-        armorItem.setRegistryName("susy_armor");
+        armorItem.setRegistryName("drtech_armor");
     }
 }

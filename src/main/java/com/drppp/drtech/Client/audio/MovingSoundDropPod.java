@@ -1,6 +1,6 @@
 package com.drppp.drtech.Client.audio;
 
-import com.drppp.drtech.api.sound.SusySounds;
+import com.drppp.drtech.api.sound.Sounds;
 import com.drppp.drtech.common.Entity.EntityDropPod;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.util.SoundCategory;
@@ -13,7 +13,7 @@ public class MovingSoundDropPod extends MovingSound {
     private float distance = 0.0F;
 
     public MovingSoundDropPod(EntityDropPod dropPod) {
-        super(SusySounds.ROCKET_LOOP, SoundCategory.NEUTRAL);
+        super(Sounds.ROCKET_LOOP, SoundCategory.NEUTRAL);
         this.dropPod = dropPod;
         this.repeat = true;
         this.repeatDelay = 0;

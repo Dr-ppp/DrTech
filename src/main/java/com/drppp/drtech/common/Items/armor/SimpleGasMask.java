@@ -2,27 +2,21 @@ package com.drppp.drtech.common.Items.armor;
 
 import com.drppp.drtech.api.ItemHandler.IBreathingArmorLogic;
 import com.drppp.drtech.common.enent.DimensionBreathabilityHandler;
-import gregtech.api.items.armor.ArmorMetaItem;
-import gregtech.api.items.metaitem.stats.IItemBehaviour;
-
 import gregtech.api.items.metaitem.stats.IItemDurabilityManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
-import net.minecraft.world.World;
-
 
 import java.util.List;
 
-import static com.drppp.drtech.common.enent.DimensionBreathabilityHandler.BENEATH_TYPE_ID;
+import static com.drppp.drtech.common.enent.DimensionBreathabilityHandler.NETHER_TYPE_ID;
 
 public class SimpleGasMask implements IBreathingArmorLogic, IItemDurabilityManager {
     public static final double LIFETIME = 1200;
+
     @Override
     public EntityEquipmentSlot getEquipmentSlot(ItemStack itemStack) {
         return EntityEquipmentSlot.HEAD;
@@ -45,7 +39,7 @@ public class SimpleGasMask implements IBreathingArmorLogic, IItemDurabilityManag
 
     @Override
     public boolean mayBreatheWith(ItemStack stack, EntityPlayer player) {
-        return BENEATH_TYPE_ID.contains(player.dimension) && getDamage(stack) < 1;
+        return NETHER_TYPE_ID.contains(player.dimension) && getDamage(stack) < 1;
     }
 
 
@@ -57,9 +51,9 @@ public class SimpleGasMask implements IBreathingArmorLogic, IItemDurabilityManag
     @Override
     public double tryTick(ItemStack stack, EntityPlayer player) {
         if (DimensionBreathabilityHandler.isInHazardousEnvironment(player)) {
-            changeDamage(stack, 1. / LIFETIME); // It's actually ticked every overall second, not just every tick.
+            changeDamage(stack, 1);
         }
-        if (getDamage(stack) >= 1) {
+        if (getDamage(stack) == 1) {
             player.renderBrokenItemStack(stack);
             stack.shrink(1);
             player.setItemStackToSlot(EntityEquipmentSlot.HEAD, ItemStack.EMPTY);
@@ -71,6 +65,7 @@ public class SimpleGasMask implements IBreathingArmorLogic, IItemDurabilityManag
     public void addInformation(ItemStack stack, List<String> tooltips) {
         int secondsRemaining = (int) (LIFETIME - getDamage(stack) * LIFETIME);
         tooltips.add(I18n.format("drtech.seconds_left", secondsRemaining));
+        tooltips.add(I18n.format("drtech.dimension_applicable："+ NETHER_TYPE_ID));
     }
 
     private double getDamage(ItemStack stack) {

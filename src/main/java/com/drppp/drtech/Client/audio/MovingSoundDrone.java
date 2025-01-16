@@ -1,6 +1,6 @@
 package com.drppp.drtech.Client.audio;
 
-import com.drppp.drtech.api.sound.SusySounds;
+import com.drppp.drtech.api.sound.Sounds;
 import com.drppp.drtech.common.Entity.EntityDrone;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.util.SoundCategory;
@@ -13,7 +13,7 @@ public class MovingSoundDrone extends MovingSound {
     private float distance = 0.0F;
 
     public MovingSoundDrone(EntityDrone drone) {
-        super(SusySounds.DRONE_TAKEOFF, SoundCategory.NEUTRAL);
+        super(Sounds.DRONE_TAKEOFF, SoundCategory.NEUTRAL);
         this.drone = drone;
         this.repeat = false;
         this.volume = 0.5F;
